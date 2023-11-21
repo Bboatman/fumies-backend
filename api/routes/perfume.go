@@ -13,6 +13,6 @@ func UsePerfumeRoutes(r *gin.Engine) {
 	perfumeGroup.GET("", handlers.GetPerfume)
 	perfumeGroup.POST("", handlers.CreateOrUpdatePerfume)
 	perfumeGroup.PUT("/:id", handlers.CreateOrUpdatePerfume)
-	perfumeGroup.PUT("/:id/wear", handlers.WearPerfume)
+	perfumeGroup.POST("/:id/wear", handlers.WearPerfume)
 	perfumeGroup.POST("/recommend", handlers.RecommendPerfume)
 }

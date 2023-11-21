@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+services:
+  api:
+    build:
+      context: ./
+    volumes: 
+      - ./api:/usr/src/app/api/.
+      - ./cmd:/usr/src/app/cmd/.
+      - ./middleware:/usr/src/app/middleware/.
+      - ./migrations:/usr/src/app/migrations/.
+      - ./go.mod:/usr/src/app/go.mod
+      - ./go.mod:/usr/src/app/go.sum
+      - ./.env:/usr/src/app/.env
+    ports:
+      - "8080:8080" 
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fumies

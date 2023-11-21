@@ -1,0 +1,66 @@
+Table metric {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	type varchar(80)
+	label varchar(80)
+	t integer
+	f integer
+	g integer
+	m integer
+  }
+  
+  Table user {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	username varchar(126)
+	email varchar(126)
+  }
+  
+  Table perfume {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	name varchar(126)
+	house varchar(126)
+	url varchar(126)
+	is_empty boolean
+	description text
+	user_id uuid
+	created_at timestamp [default: `now()`]
+  }
+  
+  Ref: perfume.user_id > user.id
+  
+  Table perfume_metric {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	note_id uuid
+	perfume_id uuid
+	created_at timestamp [default: `now()`]
+  }
+  Ref: perfume_metric.note_id > metric.id
+  Ref: perfume_metric.perfume_id > perfume.id
+  
+  Table review {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	title varchar
+	body text
+	user_id uuid
+	status post_status
+	created_at timestamp [default: `now()`]
+  }
+  
+  Ref: review.user_id > user.id
+  
+  Enum post_status {
+	draft
+	published
+	private [note: 'visible via owner only']
+  }
+  
+  Table wear {
+	id uuid [primary key, DEFAULT: uuid_generate_v4()]
+	created_at timestamp [default: `now()`]
+	perfume_id uuid
+	user_id uuid
+  }
+  
+  Ref: wear.user_id > user.id
+  Ref: wear.perfume_id > perfume.id
+  
+  

@@ -22,7 +22,7 @@ type ModifyPerfumeBody struct {
 	Url         *string      `json:"url"`
 	IsEmpty     bool         `json:"is_empty"`
 	Description *string      `json:"description"`
-	Notes       *[]uuid.UUID `json:"notes", db:"notes"`
+	Notes       *[]uuid.UUID `json:"notes" db:"notes"`
 }
 
 type PerfumeResponse struct {

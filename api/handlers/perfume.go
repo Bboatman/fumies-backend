@@ -144,12 +144,17 @@ func SetMetricsForPerfume(pool *pgxpool.Pool, ctx *gin.Context, perfumeId uuid.U
 
 func RecommendPerfume(ctx *gin.Context) {
 	userId, _ := ctx.Get("user_id")
-	var requestBody models.RecommendationRequestBody
+	var requestBody models.RecommendationRequest
 	pool, _ := ctx.Get("db_pool")
 
 	if err := ctx.BindJSON(&requestBody); err != nil {
 		log.Default().Printf("Failed to bind request: %+v", err)
 		ctx.JSON(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	if len(requestBody.Notes) < 1 {
+		ctx.JSON(http.StatusBadRequest, "invalid note data")
 		return
 	}
 

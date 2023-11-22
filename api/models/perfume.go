@@ -35,14 +35,14 @@ type PerfumeResponse struct {
 	Notes       *[]uuid.UUID `json:"notes,omitempty" db:"notes"`
 }
 
-type RecommendationRequestBody struct {
+type RecommendationRequest struct {
 	Notes []string `json:"notes"`
 }
 
 type PerfumeVector struct {
 	PerfumeId uuid.UUID `json:"perfume_id" db:"perfume_id"`
-	Vector    []float64 `json:"vector"`
-	Epoch     *float64  `json:"epoch,omitempty" db:"epoch"`
+	Vector    []float64 `json:"-"`
+	Epoch     *float64  `json:"-" db:"epoch"`
 	CosineSim *float64  `json:"cosine_sim"`
-	Include   *bool     `json:"include"`
+	Include   *bool     `json:"-"`
 }
